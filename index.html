@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -7,6 +7,76 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Futura police locale ou fallback si non disponible -->
     <style>
+      /* === DARK THEME CSS OVERRIDES === */
+      html, body {
+        background: #19162a !important;
+      }
+      .main-content {
+        background: #19162a !important;
+      }
+      .btn-gradient {
+        background: linear-gradient(90deg, #7a5de1 0%, #6a5ad7 80%) !important;
+        color: #fff !important;
+      }
+      .btn-gradient:hover,
+      .btn-gradient:active {
+        filter: brightness(1.2);
+      }
+      .input-link {
+        background: linear-gradient(90deg,#26233d 0%,#27273c 100%) !important;
+        color: #e6e4f8 !important;
+        border-color: #29224e !important;
+      }
+      .input-link .fa-arrow-up-right-from-square,
+      .input-link .fa-download {
+        color: #e6e4f8 !important;
+      }
+      .rounded-xl, .footer-content {
+        background: #232038 !important;
+        color: #bdbafc !important;
+      }
+      .footer-gradient {
+        background: linear-gradient(90deg, #4a3c88 0%, #372e59 50%, #26223f 100%) !important;
+        opacity: 0.85;
+        filter: blur(0.5px);
+      }
+      .footer-content, 
+      .footer-content * {
+        color: #bdbafc !important;
+      }
+      h1, h2, p, .text-black {
+        color: #eae9f5 !important;
+      }
+      .profile-img {
+        border-color: #323155 !important;
+      }
+      .badge-info {
+        background: linear-gradient(90deg,#6a5ad7 0%, #7a5de1 100%) !important;
+        color: #fff !important;
+      }
+      .bg-[#f7f7fb] {
+        background: #232038 !important;
+      }
+      .bg-[#edeaff] {
+        background: #19162a !important;
+        color: #bdbafc !important;
+      }
+      .text-[#a68df5] {
+        color: #bdbafc !important;
+      }
+      .text-[#7c5bdb] {
+        color: #bdbafc !important;
+      }
+      .text-gray-700 {
+        color: #bdbafc !important;
+      }
+      .border-[#edeaff] {
+        border-color: #232038 !important;
+      }
+      .social-icon-bg {
+        background: #232038 !important;
+      }
+      /* --- Existing CSS ... (from ta carte) --- */
       @font-face {
         font-family: 'Futura';
         src:
@@ -23,7 +93,6 @@
         min-height: 100vh;
         margin: 0;
         padding: 0;
-        background: #fff;
         scroll-behavior: smooth;
         font-family: 'Futura', 'Inter', Arial, sans-serif !important;
       }
@@ -254,7 +323,7 @@
           </div>
         </div>
         <div class="ml-5 shrink-0">
-          <img src="https://firebasestorage.googleapis.com/v0/b/justfit-bed28.firebasestorage.app/o/IMG_1474%202.jpg?alt=media&token=ea0fefb7-14a1-4df2-b37e-1d5ddaa3c3b1"
+          <img src="https://media.discordapp.net/attachments/1258352936837189702/1391747759224131704/IMG_1474.jpg?ex=686d059b&is=686bb41b&hm=3f68d22afd3d90358e1c8542d826c0638133fb893b2bb47d5428eef7c708e643&=&format=webp&width=558&height=744"
                alt="Clément Lenoble"
                class="w-20 h-20 profile-img"/>
         </div>
@@ -288,7 +357,7 @@
         <h2 class="text-lg font-semibold mb-1">A propos</h2>
         <div class="rounded-xl p-3 bg-[#f7f7fb] text-gray-700 text-base font-normal">
           Je supervise l’ensemble de la direction artistique de la marque, de la conception des collections au design global. Chaque pièce est pensée avec soin pour refléter une identité forte et cohérente, à la croisée du style, de la qualité et de l’innovation visuelle.<br>
-          </div>
+        </div>
       </div>
       <div class="flex items-center justify-center gap-2 px-6 mt-7 mb-2">
         <div class="social-carousel">
@@ -296,13 +365,14 @@
             <button class="social-icon-bg" aria-label="LinkedIn" onclick="window.open('https://www.linkedin.com/in/clément-lenoble-1076a11a9/','_blank')">
               <i class="fa-brands fa-linkedin-in fa-xl" style="color:#0077b5"></i>
             </button>
+            
             <button class="social-icon-bg" aria-label="Instagram" onclick="window.open('https://instagram.com/clement.lble','_blank')">
               <i class="fa-brands fa-instagram fa-xl" style="color:#E4405F"></i>
             </button>
             <button class="social-icon-bg" aria-label="Pinterest" onclick="window.open('https://pin.it/4k9Ye8EG6','_blank')">
               <i class="fa-brands fa-pinterest-p fa-xl" style="color:#E60023"></i>
             </button>
-          </button>
+            
           </div>
         </div>
         <button id="carousel-right" class="slider-arrow text-[#a68df5] text-xl" aria-label="Suivant"><i class="fa-solid fa-chevron-right"></i></button>
@@ -315,8 +385,8 @@
         <a href="https://meet.google.com/landing?pli=1" target="_blank" class="input-link flex items-center justify-between px-5 py-3 font-medium shadow rounded-xl border border-[#edeaff] hover:shadow-md transition">
           Prendre Rendez-vous
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
-       
         </a>
+ 
         <a href="https://drive.google.com/file/d/1pC7pZkFf6v7JZN9w3T5Cgk5wmjXZGkYX/view?usp=sharing" target="_blank" class="input-link flex items-center justify-between px-5 py-3 font-medium shadow rounded-xl border border-[#edeaff] hover:shadow-md transition">
           Télécharger le CV
           <i class="fa-solid fa-download"></i>
