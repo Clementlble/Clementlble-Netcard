@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>NetCard Clement.lble</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Futura police locale ou fallback si non disponible -->
     <style>
+      @font-face {
+        font-family: 'Futura';
+        src:
+          local('Futura'),
+          local('FuturaBT'),
+          url('https://fonts.cdnfonts.com/s/15171/FuturaBookBT.woff') format('woff'),
+          url('https://fonts.cdnfonts.com/s/15171/FuturaBookBT.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
       html, body {
         height: 100%;
         min-height: 100vh;
@@ -15,12 +25,13 @@
         padding: 0;
         background: #fff;
         scroll-behavior: smooth;
+        font-family: 'Futura', 'Inter', Arial, sans-serif !important;
       }
       body {
-        font-family: 'Inter', sans-serif;
         min-height: 100vh;
         width: 100vw;
         overflow-x: hidden;
+        font-family: 'Futura', 'Inter', Arial, sans-serif !important;
       }
       .btn-gradient {
         background: linear-gradient(90deg, #a68df5 0%, #b8b2f7 80%);
@@ -43,9 +54,16 @@
         align-items: center;
         justify-content: center;
         transition: background .13s;
-        margin-right: 18px; /* Moins d'espace entre les icônes */
+        margin-right: 18px;
         margin-left: 0;
         flex-shrink: 0;
+        background: linear-gradient(110deg, #f5f6fa 60%, #e3e0f5 100%);
+        background-size: 200% 200%;
+        animation: shimmer 2.5s infinite linear;
+      }
+      @keyframes shimmer {
+        0% {background-position: 0% 50%;}
+        100% {background-position: 100% 50%;}
       }
       .social-icon-bg:last-child { margin-right: 0; }
       .social-carousel {
@@ -70,36 +88,33 @@
         font-weight: 500;
         height: 38px;
         margin-top: 7px;
+        transition: box-shadow .18s;
+        box-shadow: 0 1px 8px #e1d8fa15;
+        position: relative;
+        z-index: 1;
+      }
+      .input-link:hover {
+        box-shadow: 0 4px 24px #a68df523;
+        transform: translateY(-2px) scale(1.03) rotate(-1deg);
       }
       .input-link .fa-arrow-up-right-from-square {
         color: #232323;
       }
-      .section-shadow {
-        box-shadow: 0 2px 14px 0 #eae6fb1a;
-      }
       .profile-img {
         object-fit: cover;
         object-position: center;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 2px 24px #b8b2f73b, 0 2px 12px #f8f8fe80;
+        animation: bounceIn 1.1s cubic-bezier(.5,1.7,.8,1.1);
       }
-      .footer {
-        width: 100vw;
-s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
-        color: #a68df5;
-        font-weight: 500;
-        font-size: 1.1rem;
-        letter-spacing: 0.01em;
-        text-align: center;
-        padding: 15px 0 10px 0;
-        border-top: 1px solid #e1e1f7;
-        box-shadow: 0 -1px 6px #e9e6fb44;
-        margin-top: 30px;
-        /* For iOS safe area if needed */
-        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
-        position: relative;
+      @keyframes bounceIn {
+        0% { transform: scale(0.5) translateY(-70px); opacity: 0; }
+        65% { transform: scale(1.12) translateY(6px); opacity: 1; }
+        100% { transform: scale(1) translateY(0); }
       }
       @media (max-width: 420px) {
         .social-carousel { width: 232px; }
-        .footer { font-size: 0.95rem; }
       }
       button:active {
         opacity: 0.85;
@@ -109,244 +124,131 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
         display: flex;
         flex-direction: column;
       }
-
-      /* Bottom sheet overlay styles */
-      .overlay-bg {
-        position: fixed;
-        inset: 0;
-        z-index: 50;
-        background: rgba(40, 40, 60, 0.38);
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        transition: opacity .2s;
+      .main-content .w-full.h-44.relative {
+        animation: bannerSlideIn 1.1s cubic-bezier(.5,1.8,.8,1.1);
       }
-      .overlay-bottomsheet {
-        background: #fff;
-        border-top-left-radius: 24px;
-        border-top-right-radius: 24px;
-        box-shadow: 0 -8px 40px #a68df533;
-        width: 100vw;
-        max-width: 480px;
-        min-height: 32vh;
-        padding: 2.3rem 1.5rem 2.5rem 1.5rem;
-        text-align: center;
-        position: relative;
-        animation: bottomSheetIn .27s cubic-bezier(.4,0,.2,1);
-        margin-bottom: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      @keyframes bannerSlideIn {
+        0% { transform: scaleX(1.25) translateY(-80px); opacity: 0; }
+        60% { transform: scaleX(0.98) translateY(12px); opacity: .95; }
+        100% { transform: scaleX(1) translateY(0); opacity: 1; }
       }
-      @keyframes bottomSheetIn {
-        from { transform: translateY(60px); opacity: 0; }
-        to   { transform: translateY(0); opacity: 1; }
-      }
-      /* Nouvelle animation pour la fermeture */
-      @keyframes bottomSheetOut {
-        from { transform: translateY(0); opacity: 1; }
-        to   { transform: translateY(60px); opacity: 0; }
-      }
-      .overlay-close {
-        position: absolute;
-        top: 1.0rem;
-        right: 1.0rem;
-        background: #edeaff;
-        color: #7c5bdb;
-        border: none;
-        border-radius: 999px;
-        width: 2.2rem;
-        height: 2.2rem;
-        cursor: pointer;
-        font-size: 1.3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 0 1px #ece7ff;
-        transition: background 0.12s;
-      }
-      .overlay-close:active { background: #d6d1f9;}
-      .overlay-dragbar {
-        width: 48px;
-        height: 5px;
-        border-radius: 4px;
-        background: #e6e0f7;
-        margin: 0 auto 1.1rem auto;
-        opacity: 0.85;
-      }
-      .overlay-info-list {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-        align-items: center;
-        margin-bottom: 2.1rem;
-      }
-      .overlay-info-row {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        font-size: 1.14rem;
-        width: 95%;
-        justify-content: flex-start;
-        background: #f8f8fe;
-        border-radius: 12px;
-        padding: 0.95rem 1.1rem;
-        box-shadow: 0 1px 6px #edeaff33;
-        font-weight: 500;
-      }
-      .overlay-info-row .icon {
-        color: #a68df5;
-        font-size: 1.21rem;
-        min-width: 1.4em;
-        text-align: center;
-      }
-      .overlay-info-row a, .overlay-info-row button {
-        color: #7c5bdb;
-        text-decoration: underline;
-        background: none;
-        border: none;
-        font: inherit;
-        cursor: pointer;
-        padding: 0;
-        transition: color 0.13s;
-      }
-      .overlay-info-row a:active, .overlay-info-row button:active {
-        color: #a68df5;
-        text-decoration: underline;
-      }
-      .overlay-actions {
-        width: 100%;
-        display: flex;
-        gap: 1.1rem;
-        justify-content: center;
-      }
-      .overlay-action-btn {
-        flex: 1;
-        background: linear-gradient(90deg, #edeaff 0%, #f8f8fe 100%);
-        color: #7c5bdb;
-        font-weight: 600;
-        font-size: 1.08rem;
-        border-radius: 11px;
-        padding: 0.95rem 0.6rem;
-        border: none;
-        transition: background .14s, color .13s;
-        box-shadow: 0 1px 6px #edeaff33;
-        display: flex;
-        align-items: center;
-        gap: 0.7rem;
-        justify-content: center;
-      }
-      .overlay-action-btn:active {
-        background: #e1d8fa;
-        color: #a68df5;
-      }
-      .quick-contact-form {
-        width: 100%;
-        max-width: 370px;
-        margin: 0 auto 2.1rem auto;
-        padding: 1.1rem 1.2rem 0.8rem 1.2rem;
-        background: #f8f8fe;
-        border-radius: 18px;
-        box-shadow: 0 2px 12px #edeaff18;
-        display: flex;
-        flex-direction: column;
-        gap: 1.05rem;
-        font-size: 1.05rem;
-      }
-      .quick-contact-form label {
-        font-weight: 600;
-        color: #7c5bdb;
-        margin-bottom: 0.18rem;
-        font-size: 1.05em;
-        display: block;
-        text-align: left;
-      }
-      .quick-contact-form input,
-      .quick-contact-form textarea {
-        width: 100%;
-        border-radius: 9px;
-        border: 1.2px solid #e1e1f6;
-        padding: 0.6rem 0.95rem;
-        font-size: 1em;
-        transition: border-color .13s, box-shadow .13s;
-        background: #fff;
-        resize: none;
-      }
-      .quick-contact-form input:focus,
-      .quick-contact-form textarea:focus {
-        border-color: #a68df5;
-        outline: none;
-        box-shadow: 0 2px 10px #a68df511;
-      }
-      .quick-contact-form button[type="submit"] {
-        margin-top: 0.7rem;
-        background: linear-gradient(90deg, #a68df5 0%, #b8b2f7 80%);
+      .badge-info {
+        display: inline-block;
+        background: linear-gradient(90deg,#b8b2f7 0%, #a68df5 100%);
         color: #fff;
-        font-weight: 700;
-        font-size: 1.08em;
-        border-radius: 9px;
-        padding: 0.9rem 0;
-        border: none;
-        box-shadow: 0 2px 8px 0 #a68df51a;
-        transition: background .15s, box-shadow .15s, transform .13s;
-      }
-      .quick-contact-form button[type="submit"]:hover {
-        background: #a68df5;
-        box-shadow: 0 4px 16px #a68df54a;
-        transform: scale(1.03);
-      }
-      .quick-contact-form .form-success {
-        color: #219c5a;
+        border-radius: 20px;
+        font-size: 0.85em;
         font-weight: 600;
-        text-align: center;
-        padding: 0.6rem 0 0.2rem 0;
+        padding: 2px 10px;
+        margin-right: 7px;
+        box-shadow: 0 1px 8px #a68df51d;
+        animation: badgePop .8s cubic-bezier(.5,1.6,.8,1.1) 1;
       }
-      .quick-contact-form .form-error {
-        color: #c63c3c;
-        font-weight: 600;
-        text-align: center;
-        padding: 0.6rem 0 0.2rem 0;
+      @keyframes badgePop {
+        0% { transform: scale(0.6); opacity: 0;}
+        60%{ transform: scale(1.15); opacity: 1;}
+        100%{ transform: scale(1); opacity: 1;}
       }
-      /* Animation pillule disponible */
-      .pill-available {
+      .footer-ultra {
+        width: 100vw;
+        margin-top: 30px;
+        padding: 0;
+        background: none;
         position: relative;
-        z-index: 1;
-        box-shadow: 0 0 0 0 #a68df5;
-        animation: pill-glow 1.7s infinite alternate;
+        z-index: 2;
+        overflow: visible;
       }
-      @keyframes pill-glow {
-        0% {
-          box-shadow: 0 0 0 0 #a68df540, 0 0 0 0 #a68df520;
+      .footer-gradient {
+        background: linear-gradient(90deg, #a68df5 0%, #b8b2f7 50%, #edeaff 100%);
+        height: 40px;
+        width: 100vw;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+        opacity: 0.85;
+        filter: blur(0.5px);
+        box-shadow: 0 -2px 28px #a68df54a;
+        border-radius: 28px 28px 0 0 / 36px 36px 0 0;
+      }
+      .footer-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 7vw 10px 7vw;
+        color: #a68df5;
+        font-size: 1.16rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        max-width: 100vw;
+        gap: 1px;
+        text-align: center;
+      }
+      .footer-copyright-row {
+        display: flex;
+        align-items: center;
+        gap: 0.55em;
+        font-size: 1em;
+        color: #7c5bdb;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        margin-top: 0.4em;
+      }
+      .footer-copyright-row .sm\:inline {
+        display: none;
+      }
+      @media (min-width: 640px) {
+        .footer-copyright-row .sm\:inline {
+          display: inline;
         }
-        60% {
-          box-shadow: 0 0 0 4px #a68df520, 0 0 0 8px #a68df510;
+      }
+      @media (max-width: 900px) {
+        .footer-content {
+          padding-left: 3vw;
+          padding-right: 3vw;
+          font-size: 1em;
         }
-        100% {
-          box-shadow: 0 0 0 7px #a68df520, 0 0 0 12px #a68df510;
+      }
+      @media (max-width: 600px) {
+        .footer-content {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 5vw 8px 5vw;
+          gap: 10px;
+          text-align: center;
         }
+        .footer-copyright-row { font-size: 0.98em; }
+      }
+      @media (max-width: 400px) {
+        .footer-content { padding: 7px 2vw 5px 2vw; }
+        .footer-gradient { height:26px;border-radius:18px 18px 0 0 / 20px 20px 0 0;}
       }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   </head>
   <body>
-    <div class="main-content">
-      <!-- ... contenu de la carte ... -->
-      <!-- (inchangé, tu as déjà tout le code ici) -->
-      <!-- Banner (no logo) -->
-      <div class="w-full h-44 relative" style="border-top-left-radius:0;border-top-right-radius:0;">
+    <div class="main-content relative z-10">
+      <div class="w-full h-44 relative">
         <img src="https://firebasestorage.googleapis.com/v0/b/justfit-bed28.firebasestorage.app/o/ban.jpg?alt=media&token=6f69fcac-b86f-47c3-9df4-d79d0b1667a8" alt="Profalux Banner" class="w-full h-full object-cover"/>
       </div>
-      <!-- Header infos -->
       <div class="flex flex-row items-start justify-between px-6 mt-7">
         <div class="flex-1 min-w-0">
           <h1 class="text-[1.55rem] leading-tight font-bold text-black">Lenoble Clément</h1>
           <p class="text-lg font-semibold text-[#7c5bdb] leading-tight">Créateur de Centric concept</p>
-          <div class="flex gap-2 mt-2">
-            <span class="inline-block bg-green-200 text-green-900 font-semibold rounded-full px-3 py-1 text-xs whitespace-nowrap pill-available">
-              Disponible pour des projets freelance
+          <div class="flex gap-2 mt-2 flex-wrap">
+            <span class="badge-info">
+              <i class="fa-solid fa-briefcase"></i> Directeur artistique
+            </span>
+            <span class="badge-info">
+              <i class="fa-solid fa-shirt"></i> Conception des collections
             </span>
           </div>
-          <div class="flex items-center gap-4 mt-3 text-base text-gray-700 font-medium">
+          <div class="flex items-center gap-4 mt-3 text-base text-gray-700 font-medium flex-wrap">
             <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> Lyon</span>
             <span class="flex items-center gap-1"><i class="fa-solid fa-globe"></i> FR</span>
           </div>
@@ -354,21 +256,18 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
         <div class="ml-5 shrink-0">
           <img src="https://firebasestorage.googleapis.com/v0/b/justfit-bed28.firebasestorage.app/o/IMG_1474%202.jpg?alt=media&token=ea0fefb7-14a1-4df2-b37e-1d5ddaa3c3b1"
                alt="Clément Lenoble"
-               class="w-20 h-20 profile-img rounded-2xl border-4 border-white shadow-xl"/>
+               class="w-20 h-20 profile-img"/>
         </div>
       </div>
-      <!-- Buttons / Actions -->
       <div class="flex flex-row items-center gap-4 justify-center mt-7 mb-2">
-        <!-- Fiche contact -->
-        <button
-          id="fiche-contact-btn"
-          type="button"
+        <a
+          href="clement-lenoble.vcf"
           class="btn-gradient flex items-center gap-2 px-4 py-2 rounded-xl shadow text-base whitespace-nowrap"
-          style="touch-action: manipulation;"
+          style="touch-action: manipulation; text-decoration: none;"
+          target="_blank" rel="noopener"
         >
           <i class="fa-regular fa-address-card"></i> Fiche contact
-        </button>
-        <!-- Echanger -->
+        </a>
         <button
           class="btn-gradient flex items-center gap-2 px-4 py-2 rounded-xl shadow text-base whitespace-nowrap"
           style="touch-action: manipulation;"
@@ -376,7 +275,6 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
         >
           <i class="fa-solid fa-arrows-rotate"></i> Echanger
         </button>
-        <!-- AirDrop -->
         <button
           id="airdrop-btn"
           class="bg-[#edeaff] flex items-center justify-center w-11 h-11 rounded-xl text-[#a68df5] shadow"
@@ -386,14 +284,20 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
           <i class="fa-solid fa-share-nodes"></i>
         </button>
       </div>
-      <!-- A propos -->
       <div class="px-6 mt-6">
         <h2 class="text-lg font-semibold mb-1">A propos</h2>
         <div class="rounded-xl p-3 bg-[#f7f7fb] text-gray-700 text-base font-normal">
-          Je supervise l’ensemble de la direction artistique de la marque, de la conception des collections au design global. Chaque pièce est pensée avec soin pour refléter une identité forte et cohérente, à la croisée du style, de la qualité et de l’innovation visuelle.
+          Je supervise l’ensemble de la direction artistique de la marque, de la conception des collections au design global. Chaque pièce est pensée avec soin pour refléter une identité forte et cohérente, à la croisée du style, de la qualité et de l’innovation visuelle.<br>
+          <span class="font-semibold text-[#a68df5]">Compétences clés :</span>
+          <ul class="list-disc pl-6 mt-1 text-[#7c5bdb]">
+            <li>Branding & Identité de marque</li>
+            <li>Webdesign & UX/UI (Figma, Webflow, WordPress)</li>
+            <li>Création graphique, Print & Digital</li>
+            <li>Stratégie visuelle & storytelling</li>
+            <li>Gestion de projets créatifs</li>
+          </ul>
         </div>
       </div>
-      <!-- Socials Carousel -->
       <div class="flex items-center justify-center gap-2 px-6 mt-7 mb-2">
         <div class="social-carousel">
           <div class="social-carousel-track" id="social-carousel-track">
@@ -416,7 +320,6 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
         </div>
         <button id="carousel-right" class="slider-arrow text-[#a68df5] text-xl" aria-label="Suivant"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
-      <!-- Links -->
       <div class="flex flex-col gap-3 px-5 mt-4 pb-8">
         <a href="https://centriconcept.com" target="_blank" class="input-link flex items-center justify-between px-5 py-3 font-medium shadow rounded-xl border border-[#edeaff] hover:shadow-md transition">
           Site Centric.concept
@@ -430,111 +333,33 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
           Portfolio
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
+        <a href="https://drive.google.com/file/d/1pC7pZkFf6v7JZN9w3T5Cgk5wmjXZGkYX/view?usp=sharing" target="_blank" class="input-link flex items-center justify-between px-5 py-3 font-medium shadow rounded-xl border border-[#edeaff] hover:shadow-md transition">
+          Télécharger le CV
+          <i class="fa-solid fa-download"></i>
+        </a>
       </div>
-      <!-- Footer -->
-      <footer class="footer">
-        Carte de visite Lenoble Clément © 2025
-      </footer>
-    </div>
-    <!-- Overlay (hidden by default, bottom sheet style) -->
-    <div id="fiche-contact-overlay" class="overlay-bg" style="display:none;">
-      <div class="overlay-bottomsheet">
-        <div class="overlay-dragbar"></div>
-        <button type="button" class="overlay-close" aria-label="Fermer" onclick="closeOverlay()">
-          <i class="fa-solid fa-times"></i>
-        </button>
-        <!-- Nouveau : formulaire rapide -->
-        <form id="quickContactForm" class="quick-contact-form" autocomplete="off">
-          <div>
-            <label for="formName">Nom</label>
-            <input id="formName" name="name" type="text" required placeholder="Votre nom"/>
-          </div>
-          <div>
-            <label for="formEmail">Email</label>
-            <input id="formEmail" name="email" type="email" required placeholder="Votre email"/>
-          </div>
-          <!-- Champ message supprimé -->
-          <button type="submit"><i class="fa-solid fa-paper-plane"></i> Demander l'accès à la fiche contact</button>
-          <div id="formMessage"></div>
-        </form>
-        <!-- / Nouveau -->
-        <div id="contact-infos" style="display:none;">
-          <div class="overlay-info-list" style="margin-bottom:2.1rem;">
-            <div class="overlay-info-row">
-              <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-              <a href="mailto:clement.lenoble74@gmail.com">clement.lenoble74@gmail.com</a>
-            </div>
-            <div class="overlay-info-row">
-              <span class="icon"><i class="fa-solid fa-phone"></i></span>
-              <a href="tel:+33695208374">+33 6 95 20 83 74</a>
-            </div>
-          </div>
-          <div class="overlay-actions">
-            <button class="overlay-action-btn" onclick="window.location.href='mailto:clement.lenoble74@gmail.com'">
-              <i class="fa-solid fa-paper-plane"></i> Envoyer un mail
-            </button>
-            <button class="overlay-action-btn" onclick="window.open('tel:+33695208374')">
-              <i class="fa-solid fa-phone"></i> Appeler
-            </button>
+      <footer class="footer-ultra relative" style="overflow:visible;">
+        <div class="footer-gradient" style="height:40px;"></div>
+        <div class="footer-content flex flex-col items-center justify-center gap-1 z-10 relative">
+          <div class="footer-copyright-row">
+            <i class="fa-regular fa-copyright"></i>
+            <span>2025 Netcard clement.lble</span>
+            <span class="sm:inline">- Design & développement par Clément Lenoble</span>
           </div>
         </div>
-      </div>
+        <svg class="absolute left-1/2 bottom-0 -translate-x-1/2 z-0" width="100%" height="30" viewBox="0 0 500 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events:none;">
+          <path d="M0,15 C100,30 400,0 500,15 L500,30 L0,30 Z" fill="url(#footerWave)" />
+          <defs>
+            <linearGradient id="footerWave" x1="0" y1="0" x2="500" y2="30" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#a68df5"/>
+              <stop offset="0.5" stop-color="#b8b2f7"/>
+              <stop offset="1" stop-color="#edeaff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </footer>
     </div>
     <script>
-      // Overlay logic
-      document.getElementById('fiche-contact-btn').onclick = function() {
-        document.getElementById('fiche-contact-overlay').style.display = "flex";
-        document.body.style.overflow = "hidden";
-      };
-      function closeOverlay() {
-        const overlay = document.getElementById('fiche-contact-overlay');
-        const bottomSheet = overlay.querySelector('.overlay-bottomsheet');
-        // Ajoute l'animation de sortie
-        bottomSheet.style.animation = "bottomSheetOut .27s cubic-bezier(.4,0,.2,1)";
-        overlay.style.background = "rgba(40, 40, 60, 0.0)"; // fade out le fond
-        setTimeout(() => {
-          overlay.style.display = 'none';
-          document.body.style.overflow = "";
-          // Réinitialise l'animation pour la prochaine ouverture
-          bottomSheet.style.animation = "bottomSheetIn .27s cubic-bezier(.4,0,.2,1)";
-          overlay.style.background = "rgba(40, 40, 60, 0.38)";
-        }, 270);
-      }
-      document.querySelector('.overlay-close').onclick = closeOverlay;
-      window.addEventListener('keydown', function(e) {
-        if(document.getElementById('fiche-contact-overlay').style.display === 'flex' && e.key === 'Escape') {
-          closeOverlay();
-        }
-      });
-      document.getElementById('fiche-contact-overlay').addEventListener('mousedown', function(e) {
-        if (e.target === this) closeOverlay();
-      });
-
-      // Formulaire rapide (simulation JS, pas d'envoi email réel, affichage message)
-      document.getElementById('quickContactForm').onsubmit = function(e) {
-        e.preventDefault();
-        var name = document.getElementById('formName').value.trim();
-        var email = document.getElementById('formEmail').value.trim();
-        var messageDiv = document.getElementById('formMessage');
-        // Validation simple
-        if(!name || !email) {
-          messageDiv.innerHTML = '<div class="form-error">Merci de remplir tous les champs.</div>';
-          return false;
-        }
-        // Simule l'envoi
-        messageDiv.innerHTML = '<div class="form-success">Merci ! Votre demande a bien été envoyée.<br>Vous recevrez une réponse prochainement.</div>';
-        document.getElementById('quickContactForm').reset();
-        setTimeout(() => { messageDiv.innerHTML = ""; }, 1200);
-
-        // Affiche les infos de contact et masque le formulaire
-        setTimeout(() => {
-          document.getElementById('quickContactForm').style.display = "none";
-          document.getElementById('contact-infos').style.display = "block";
-        }, 1200);
-
-        return false;
-      };
-
       // Socials carousel logic: boucle infinie vers la droite
       const track = document.getElementById('social-carousel-track');
       const btnRight = document.getElementById('carousel-right');
@@ -542,30 +367,24 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
       let position = 0;
       let autoScroll;
 
-      // Duplique les premiers éléments pour effet de boucle fluide
       function cloneForLoop() {
-        // Supprime les clones précédents s'il y en a
         const clones = track.querySelectorAll('.carousel-clone');
         clones.forEach(clone => clone.remove());
-        // Clone les premiers éléments pour la boucle
         for (let i = 0; i < visibleIcons; i++) {
           const clone = track.children[i].cloneNode(true);
           clone.classList.add('carousel-clone');
           track.appendChild(clone);
         }
       }
-
       function updateCarousel() {
-        const iconWidth = 52 + 18; // 52px + 18px de margin-right
+        const iconWidth = 52 + 18;
         track.style.transition = 'transform 0.5s cubic-bezier(.4,0,.2,1)';
         track.style.transform = `translateX(${-position * iconWidth}px)`;
       }
-
       function moveNext() {
         const iconCount = track.children.length;
         position++;
         updateCarousel();
-        // Si on atteint la fin (après les clones), on revient instantanément au début
         if (position === iconCount - visibleIcons) {
           setTimeout(() => {
             track.style.transition = 'none';
@@ -574,12 +393,10 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
           }, 510);
         }
       }
-
       btnRight.onclick = () => {
         moveNext();
         resetAutoScroll();
       };
-
       function startAutoScroll() {
         autoScroll = setInterval(moveNext, 2100);
       }
@@ -587,7 +404,6 @@ s        background: linear-gradient(90deg, #f8f8fe 0%, #edeaff 100%);
         clearInterval(autoScroll);
         startAutoScroll();
       }
-
       function adjustCarouselWidth() {
         visibleIcons = window.innerWidth <= 420 ? 4 : 5;
         let width = visibleIcons * (52 + 18) - 18;
